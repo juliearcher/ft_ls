@@ -47,6 +47,7 @@ enum			e_options
 typedef struct	s_file
 {
 	struct dirent	*file;
+	struct stat		file_infos;
 	struct s_file	*next;
 }				t_file;
 
@@ -62,7 +63,9 @@ int				print_file(char *path, int options);
 
 int				print_error(char *path);
 
-int				free_list(t_directory *directory);
-int				add_entry_to_list(t_directory *directory, struct dirent *entry);
-
+void			free_list(t_directory *directory);
+int				add_entry_to_list(t_directory *directory,
+					struct dirent *entry, int options);
+void			add_elem_to_list(t_directory *directory,
+					t_file *elem, int options);
 #endif

@@ -17,6 +17,7 @@ NAMELIB =	libft/libft.a
 
 SRCS =	create_list.c	\
 		get_arguments.c	\
+		insert_list.c	\
 		main.c			\
 		print_file.c	\
 		read_directory.c

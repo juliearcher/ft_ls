@@ -26,25 +26,47 @@ int			print_error(char *path)
 	return (-1);
 }
 
+static int	ls_directories(int ac, char **av, int current, int options)
+{
+	struct stat	file;
+
+	while (current < ac)
+	{
+		if (av[i] != 0)
+		{
+			if ((lstat(av[current], &file)) == -1)
+				return (print_error(av[current]));
+			if (av[i] != 0 && file.st_mode & S_IFDIR)
+				read_directory(av[current], options);
+		}
+		++current;
+	}
+	return (0);
+}
+
 int			begin_ls(int ac, char **av, int current, int options)
 {
 	struct stat	file;
+	int			first;
 
 	if (current == ac)
 	{
 		read_directory(".", options);
 		return (0);
 	}
+	first = current;
 	while (current < ac)
 	{
 		if ((lstat(av[current], &file)) == -1)
 			return (print_error(av[current]));
-		if (file.st_mode & S_IFDIR)
-			read_directory(av[current], options);
-		else
+		if (!(file.st_mode & S_IFDIR))
+		{
 			print_file(av[current], options);
+			av[i] = 0;
+		}
 		++current;
 	}
+	ls_directories(ac, av, first, options);
 	return (0);
 }
 
