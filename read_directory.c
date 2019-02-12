@@ -15,7 +15,20 @@
 
 int				read_directory(char *path, int options)
 {
+	t_directory		directory;
+	struct dirent	*entry;
+
+	if ((directory.dir = opendir(path)) == NULL)
+		return (print_error(path));
+	directory.file_list = NULL;
 	(void)options;
+	while ((entry = readdir(directory.dir)))
+	{
+		if ((add_entry_to_list(&directory, entry)) == -1)
+			return (print_error(path));
+	}
 	ft_printf("%s is a directory\n", path);
+	if (free_list(&directory) == -1 || closedir(directory.dir) == -1)
+		return (print_error(path));
 	return (0);
 }

@@ -16,6 +16,7 @@
 
 # include <dirent.h>
 # include <sys/stat.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
 # include <errno.h>
@@ -28,7 +29,7 @@
 
 # define ARGUMENT_ERROR	-1
 
-enum	e_options
+enum			e_options
 {
 	l = 1,
 	R = 2,
@@ -43,13 +44,25 @@ enum	e_options
 	color = 1024
 };
 
-typedef struct s_dir
+typedef struct	s_file
 {
-	int			options;
-}				t_dir;
+	struct dirent	*file;
+	struct s_file	*next;
+}				t_file;
+
+typedef struct	s_directory
+{
+	DIR			*dir;
+	t_file		*file_list;
+}				t_directory;
 
 int				get_arguments(int ac, char **av, int *options);
 int				read_directory(char *path, int options);
 int				print_file(char *path, int options);
+
+int				print_error(char *path);
+
+int				free_list(t_directory *directory);
+int				add_entry_to_list(t_directory *directory, struct dirent *entry);
 
 #endif

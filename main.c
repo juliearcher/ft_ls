@@ -13,19 +13,20 @@
 
 #include "ft_ls.h"
 
-static int	print_usage()
+static int	print_usage(void)
 {
-	ft_printf("usage: %s [%s] [--color] [file ...]\n", EXEC_NAME, ARGUMENTS_LIST);
+	ft_printf("usage: %s [%s] [--color] [file ...]\n",
+				EXEC_NAME, ARGUMENTS_LIST);
 	return (-1);
 }
 
-static int	print_error(char *path)
+int			print_error(char *path)
 {
 	ft_printf("%s: %s: %s\n", EXEC_NAME, path, strerror(errno));
 	return (-1);
 }
 
-int		begin_ls(int ac, char **av, int current , int options)
+int			begin_ls(int ac, char **av, int current, int options)
 {
 	struct stat	file;
 
@@ -47,7 +48,7 @@ int		begin_ls(int ac, char **av, int current , int options)
 	return (0);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	int	options;
 	int	i;

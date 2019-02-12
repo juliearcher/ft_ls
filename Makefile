@@ -15,7 +15,8 @@ NAME =	ft_ls
 
 NAMELIB =	libft/libft.a
 
-SRCS =	get_arguments.c	\
+SRCS =	create_list.c	\
+		get_arguments.c	\
 		main.c			\
 		print_file.c	\
 		read_directory.c
