@@ -21,6 +21,7 @@ static void	init_file(t_option *str, char *name, t_file *elem, t_opt opt)
 	elem->name = name;
 	elem->first = 1;
 	elem->dirname = 0;
+	elem->time = str->time;
 	insert_file(&str->files, elem, opt);
 	calc_length(&str->max_length, elem, opt);
 }
