@@ -26,6 +26,7 @@ static int	create_new_file(t_option *opts)
 	elem->first = 1;
 	elem->dirname = 0;
 	elem->blocks = 0;
+	elem->time = opts->time;
 	elem->next = NULL;
 	opts->files = elem;
 	calc_length(&elem->max_length, elem, opts->options);

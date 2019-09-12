@@ -24,6 +24,7 @@ static int	add_file(t_file *dir, t_file *elem, int options)
 		return (0);
 	}
 	elem->print_rec = 0;
+	elem->time = dir->time;
 	dir->blocks += elem->infos.st_blocks;
 	insert_file(&dir->content, elem, options);
 	calc_length(&dir->max_length, elem, options);

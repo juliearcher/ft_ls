@@ -20,6 +20,7 @@ int		main(__attribute__((unused)) int ac, char **av)
 	opts.errors = NULL;
 	opts.files = NULL;
 	opts.dirnum = 0;
+	opts.time = time(NULL);
 	init_length(&opts.max_length);
 	if ((opts.options = (get_options(&opts, &av[1]))) < 0)
 	{

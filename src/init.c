@@ -26,7 +26,7 @@ static void	calc_length2(t_length *length, t_file *elem, int opt)
 		length->group_length = elem->max_length.group_length;
 	elem->strings.time = ft_strdup(ctime(opt & u ?
 		&elem->infos.st_atime : &elem->infos.st_mtime));
-	i = time(NULL);
+	i = elem->time;
 	if (i < (opt & u ? elem->infos.st_atime : elem->infos.st_mtime) ||
 		i - (opt & u ? elem->infos.st_atime : elem->infos.st_mtime) > 15552000)
 	{

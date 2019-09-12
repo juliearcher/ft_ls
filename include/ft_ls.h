@@ -100,6 +100,7 @@ typedef struct	s_file
 	int				print_rec;
 	int				dirname;
 	int				blocks;
+	int				time;
 	struct s_file	*next;
 }				t_file;
 
@@ -112,6 +113,7 @@ typedef struct	s_option
 	char		*tabopts;
 	int			values[OPT_NUM];
 	int			dirnum;
+	int			time;
 }				t_option;
 
 /*
