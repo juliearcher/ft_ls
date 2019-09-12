@@ -36,7 +36,7 @@ static void	get_permissions(t_file *file)
 	str[8] = file->infos.st_mode & S_IWOTH ? 'w' : '-';
 	str[9] = file->infos.st_mode & S_IXOTH ? 'x' : '-';
 	if (file->infos.st_mode & S_ISVTX)
-		str[9] = 't';
+		str[9] = (str[3] == 'x' || str[6] == 'x' || str[9] == 'x') ? 't' : 'T';
 	str[10] = file->max_length.perm_length == 10 ? 0 : '@';
 }
 
