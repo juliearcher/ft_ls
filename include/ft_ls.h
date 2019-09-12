@@ -31,9 +31,21 @@
 # define NAME			"./ft_ls"
 # define OPT_NUM		11
 
+# define BLUE			"\e[0;34m"
+# define MAGENTA		"\e[0;35m"
+# define GREEN			"\e[0;32m"
+# define YELLOW			"\e[0;33m"
+# define RED			"\e[0;31m"
+# define DEFAULT		"\e[0;39m"
+# define BLUECYAN		"\e[0;34;46m"
+# define BLUEYELLOW		"\e[0;34;43m"
+# define BLACKGREEN		"\e[0;30;42m"
+# define BLACKYELLOW	"\e[0;30;43m"
+# define END			"\e[0m"
+
 typedef int		t_opt;
 
-enum			e_options
+enum			e_option
 {
 	l = 1,
 	R = 2,
@@ -68,20 +80,26 @@ typedef struct	s_length
 
 typedef struct	s_str
 {
-	char		*permissions;
 	char		*owner;
 	char		*group;
 	char		*time;
+	char		link[256];
+	char		perm[12];
 }				t_str;
 
 typedef struct	s_file
 {
-	struct dirent	*file;
 	struct stat		infos;
 	struct s_file	*content;
 	char			*path;
+	char			*name;
 	t_length		max_length;
 	t_str			strings;
+	int				first;
+	int				first_file;
+	int				print_rec;
+	int				dirname;
+	int				blocks;
 	struct s_file	*next;
 }				t_file;
 
@@ -93,6 +111,7 @@ typedef struct	s_option
 	t_length	max_length;
 	char		*tabopts;
 	int			values[OPT_NUM];
+	int			dirnum;
 }				t_option;
 
 /*
@@ -116,12 +135,18 @@ int				new_error(t_error **errors, char *name);
 */
 void			calc_length(t_length *length, t_file *elem, int opt);
 void			init_length(t_length *length);
+void			free_file(t_file *file);
+void			free_structs(t_error *errors, t_file *files);
 
 /*
 ** options.c
 */
-void			free_structs(t_error *errors, t_file *files);
 int				get_options(t_option *options, char **tab);
+
+/*
+** print_options.c
+*/
+int				print_options(t_option *opts);
 
 /*
 ** sort.c

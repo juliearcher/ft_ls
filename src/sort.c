@@ -29,7 +29,7 @@ int		ft_insert_file(t_file *a, t_file *b, t_opt options)
 		return (a->infos.st_mtime - b->infos.st_mtime);
 	else if (options & S)
 		return (a->infos.st_size - b->infos.st_size);
-	return (ft_strcmp(b->path, a->path));
+	return (ft_strcmp(b->name, a->name));
 }
 
 void	insert_file(t_file **files, t_file *elem, t_opt opt)
@@ -40,15 +40,13 @@ void	insert_file(t_file **files, t_file *elem, t_opt opt)
 
 	tmp = *files;
 	if (tmp == NULL ||
-		(res = ft_insert_file(elem, tmp, opt) > 0) ||
-		(res == 0 && (opt & r)))
+		((res = ft_insert_file(elem, tmp, opt)) > 0))
 	{
 		elem->next = *files;
 		*files = elem;
 		return ;
 	}
-	while (tmp != NULL && ((res = ft_insert_file(elem, tmp, opt) < 0) ||
-		(res == 0 && !(opt & r))))
+	while (tmp != NULL && (((res = ft_insert_file(elem, tmp, opt)) <= 0)))
 	{
 		prev = tmp;
 		tmp = tmp->next;

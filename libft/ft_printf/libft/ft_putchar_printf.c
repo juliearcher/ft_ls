@@ -24,10 +24,11 @@ void	ft_putchar_printf(char c, t_printf *str)
 	if (str->length == str->output_length)
 	{
 		str->output_length += 100;
-		temp = str->output;
-		if ((str->output = (char *)malloc(str->output_length + 1)) == 0)
+		if ((temp = (char *)malloc(str->output_length + 1)) == 0)
 			exit(str->length);
-		ft_strcpy(str->output, temp);
-		free(temp);
+		ft_memcpy(temp, str->output, str->length);
+		free(str->output);
+		str->output = temp;
+		str->output[str->length] = 0;
 	}
 }

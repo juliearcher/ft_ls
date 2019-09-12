@@ -19,22 +19,21 @@ int		main(__attribute__((unused)) int ac, char **av)
 
 	opts.errors = NULL;
 	opts.files = NULL;
+	opts.dirnum = 0;
 	init_length(&opts.max_length);
-	if ((opts.options = (get_options(&opts, &av[1]))) == -1)
+	if ((opts.options = (get_options(&opts, &av[1]))) < 0)
 	{
 		free_structs(opts.errors, opts.files);
 		ft_putstr_fd(opts.options == -1 ?
-			"usage: ./ft_ls [-lRartG] [file ...]\n" : "malloc error\n", 2);
+		"usage: ./ft_ls [-AFGRSalprtu] [file ...]\n" : "malloc error\n", 2);
 		return (1);
 	}
 	print_errors(opts.errors);
-
-	t_file *tmp;
-	tmp = opts.files;
-	while (tmp)
+	if (print_options(&opts) == MALLOC_ERROR)
 	{
-		display_file(&opts.max_length, tmp, opts.options);
-		tmp = tmp->next;
+		free_structs(opts.errors, opts.files);
+		ft_putstr_fd("malloc error\n", 2);
+		return (1);
 	}
 	free_structs(opts.errors, opts.files);
 	return (0);

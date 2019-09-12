@@ -13,23 +13,16 @@
 
 #include "ft_ls.h"
 
-void		free_structs(t_error *errors, t_file *files)
+static void	init_file(t_option *str, char *name, t_file *elem, t_opt opt)
 {
-	t_error	*prev;
-	t_file	*prev2;
-
-	while (errors != NULL)
-	{
-		prev = errors;
-		errors = errors->next;
-		free(prev);
-	}
-	while (files != NULL)
-	{
-		prev2 = files;
-		files = files->next;
-		free(prev2);
-	}
+	if (S_ISDIR(elem->infos.st_mode))
+		++str->dirnum;
+	elem->path = name;
+	elem->name = name;
+	elem->first = 1;
+	elem->dirname = 0;
+	insert_file(&str->files, elem, opt);
+	calc_length(&str->max_length, elem, opt);
 }
 
 static int	get_files(t_option *str, char **names, t_opt opt)
@@ -50,12 +43,11 @@ static int	get_files(t_option *str, char **names, t_opt opt)
 				return (-1);
 			continue ;
 		}
-		elem->path = names[i];
-		insert_file(&str->files, elem, opt);
-		calc_length(&str->max_length, elem, opt);
+		init_file(str, names[i], elem, opt);
 		if ((elem = (t_file *)malloc(sizeof(t_file))) == 0)
 			return (-1);
 	}
+	free(elem);
 	return (0);
 }
 
@@ -90,8 +82,8 @@ static void	init_options(char **tabopts, int *values)
 	values[6] = A;
 	values[7] = F;
 	values[8] = S;
-	values[10] = p;
-	values[11] = u;
+	values[9] = p;
+	values[10] = u;
 }
 
 int			get_options(t_option *str, char **tab)

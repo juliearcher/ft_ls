@@ -16,19 +16,20 @@ LIB=	libft/libft.a
 
 INCLUDES=	include/ft_ls.h
 
-SRCS=	src/directory.c	\
-		src/display.c	\
-		src/errors.c	\
-		src/init.c		\
-		src/main.c		\
-		src/options.c	\
+SRCS=	src/directory.c		\
+		src/display.c		\
+		src/errors.c		\
+		src/init.c			\
+		src/main.c			\
+		src/options.c		\
+		src/print_options.c	\
 		src/sort.c
 
 OBJS= $(SRCS:.c=.o)
 
 RM= rm -f
 
-CFLAGS= -Iinclude -Wall -Wextra -Werror -g3
+CFLAGS= -Iinclude -Wall -Wextra -Werror
 
 all:	$(NAME)
 
