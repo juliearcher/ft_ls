@@ -13,10 +13,11 @@
 
 #include "ft_ls.h"
 
-int		main(__attribute__((unused)) int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_option	opts;
 
+	ac = 1;
 	opts.errors = NULL;
 	opts.files = NULL;
 	opts.dirnum = 0;
