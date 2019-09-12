@@ -93,7 +93,7 @@ int			display_file(t_length *max, t_file *file, int options)
 		return (parse_directory(file, options));
 	if (!(options & l))
 	{
-		ft_printf(1, "%s%s%s\n", get_color(file->infos.st_mode, options),
+		ft_printf(1, "%s%s%s%s\n", get_color(file->infos.st_mode, options),
 		file->name, options & G ? END : "", get_type_str(file, options));
 		return (0);
 	}
